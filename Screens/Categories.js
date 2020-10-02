@@ -1,6 +1,6 @@
-import { Container, Content, Footer} from 'native-base';
+import { Body, Container, Content, Footer, Header, Title, View} from 'native-base';
 import React from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
 import CategoryData from '../Data/dummyCategories';
 import CategoryCard from '../Components/CategoryCard';
 
@@ -8,11 +8,15 @@ const Categories = ({navigation}) => {
 
     return (
         <Container>
-            {/* <Header/> */}
-            <Content>
-                <FlatList data={CategoryData} 
-                renderItem={({item, index, seperators}) => <CategoryCard item={item} navigation={navigation}/>}/>
-            </Content>
+            <Header>
+                <Body>
+                    <Title>Categories</Title>
+                </Body>
+            </Header>
+            
+            <FlatList data={CategoryData} style={styles.flatlist} 
+            renderItem={({item}) => <CategoryCard item={item} navigation={navigation}/>}/>
+            
             <Footer>
 
             </Footer>
@@ -21,10 +25,8 @@ const Categories = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-    categoryCard: {
-        // width: 200,
-        height: 200,
-        marginTop: 10
+    flatlist: {
+        // marginBottom: 10
     }
 });
 

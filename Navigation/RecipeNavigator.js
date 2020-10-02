@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 const RecipeNavigator = props => {
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator headerMode>
                 <Stack.Screen name='Categories' component={Categories}/>
                 <Stack.Screen name='Category Recipes' component={CategoryRecipes}/>
             </Stack.Navigator>
