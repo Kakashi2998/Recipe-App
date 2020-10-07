@@ -1,35 +1,26 @@
 import { Container, Content, Switch, Text, View } from 'native-base';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 import CategoryRecipesHeader from '../Components/CategoryRecipesHeader';
 import RecipeCard from '../Components/RecipeCard';
-import { RecipeData } from '../Data/dummyRecipes';
 
-const CategoryRecipes = props => {
-    
-    const [veg, setVeg] = React.useState(false);
+const CategoryRecipes = ({route: {params}}) => {
 
-    const [recipes, setRecipes] = React.useState(RecipeData.filter(recipe => recipe.categories.includes(props.route.params.id)));
+    const currentCategory = params;
 
-    const toggleVeg = () => {
-        setVeg(!veg);
-        if(!veg){
-            setRecipes(recipes.filter(r => r.vegetarian));
-            return;
-        }
-        setRecipes(RecipeData.filter(recipe => recipe.categories.includes(props.route.params.id)));
-    }
+    const isVeg = useSelector(state => state.RecipeReducer.veg);
+
+    const recipes = useSelector(state => state.RecipeReducer.recipes)
+    .filter(recipe => recipe.categories.includes(currentCategory.id) && 
+    (isVeg? recipe.vegetarian: true));
 
     return (
             <Container>
 
-                <CategoryRecipesHeader {...props}/>
+                <CategoryRecipesHeader category={currentCategory}/>
 
                 <Content padder>
-                    <View style={{flexDirection: 'row'}}>
-                        <Text>Veg only</Text>
-                        <Switch value={veg} onValueChange={toggleVeg}/>
-                    </View>
                     {recipes.map(item => <RecipeCard item={item} key={item.id}/>)}
                 </Content>
                 

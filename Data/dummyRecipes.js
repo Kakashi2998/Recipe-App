@@ -23,7 +23,6 @@ export const RecipeData = [
           'Feel free to add some cheese on top of the finished dish.'
         ],
         vegetarian: true,
-        favourite: false
     },
 
     {
@@ -44,7 +43,6 @@ export const RecipeData = [
           'Bake the toast for round about 10 minutes in the oven at 200°C'
         ],
         vegetarian: true,
-        favourite: false
     },
 
     {
@@ -68,7 +66,6 @@ export const RecipeData = [
           'Serve burger with tomato, cucumber and onion'
         ],
         vegetarian: true,
-        favourite: false
     },
 
     {
@@ -96,7 +93,6 @@ export const RecipeData = [
           'Place the schnitzels on awarmed plate and serve garnishedwith parsley and slices of lemon.'
         ],
         vegetarian: true,
-        favourite: false
     },
 
     {
@@ -123,7 +119,6 @@ export const RecipeData = [
           'Add salmon cubes and dressing'
         ],
         vegetarian: false,
-        favourite: false
     },
 
     {
@@ -151,7 +146,6 @@ export const RecipeData = [
           'Serve with orange peel'
         ],
         vegetarian: true,
-        favourite: true
     },
 
   {
@@ -175,7 +169,6 @@ export const RecipeData = [
         'Pour or scoop the batter onto the griddle, using approximately 1/4 cup for each pancake. Brown on both sides and serve hot.'
       ],
       vegetarian: true,
-      favourite: false
 
   },
 
@@ -202,7 +195,6 @@ export const RecipeData = [
             'Serve with rice'
         ],
         vegetarian: false,
-        favourite: true
     },
 
 //   new Meal(

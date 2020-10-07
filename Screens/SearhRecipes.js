@@ -1,20 +1,27 @@
-import { useFocusEffect } from '@react-navigation/native';
 import { Body, Container, Content, Header, Icon, Input, Item, Title, View } from 'native-base';
 import React, { useRef } from 'react';
 import { FlatList, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { useSelector } from 'react-redux';
 import RecipeCard from '../Components/RecipeCard';
-import { RecipeData } from '../Data/dummyRecipes';
 
 const SearchRecipes = props => {
 
     const [recipes, setRecipes] = React.useState([]);
 
+    const AllRecipes = useSelector(state => state.RecipeReducer.recipes);
+    const isVeg = useSelector(state => state.RecipeReducer.veg);
+
+    const [text, setText] = React.useState('');
+
     const search = (input) => {
+        setText(input);
         if(input === ''){
             setRecipes([]);
             return;
         }
-        setRecipes(RecipeData.filter(r => r.title.toLowerCase().includes(input.toLowerCase())));
+        setRecipes(AllRecipes
+            .filter(r => r.title.toLowerCase().includes(input.toLowerCase()) && 
+            (isVeg? r.vegetarian: true)));
     }
 
     return (
@@ -24,7 +31,10 @@ const SearchRecipes = props => {
                 <Header searchBar rounded>
                     <Item rounded>
                         <Icon name='ios-search'/>
-                        <Input placeholder='Search' onChangeText={search}/>
+                        <Input placeholder='Search' onChangeText={search} value={text}/>
+                        {text === '' ? null : 
+                        <Icon name='md-close' onPress={() => {setText(''); setRecipes([]);}}/>
+                        }
                     </Item>
                 </Header>
                 <View style={{paddingHorizontal: 10}}>

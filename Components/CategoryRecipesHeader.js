@@ -6,15 +6,18 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import FocusAwareStatusBar from './FocusAwareStatusBar';
 import { Ionicons } from '@expo/vector-icons'; 
 import { PRIMARYFONT } from '../Constants/FontConst';
+import CategoryData from '../Data/dummyCategories';
 
 
 
-const CategoryRecipesHeader = props => {
+const CategoryRecipesHeader = ({category}) => {
+
+    // console.log(category);
 
     const navigation = useNavigation();
 
     return (
-        <ImageBackground source={props.route.params.image} style={styles.headerImage}>
+        <ImageBackground source={{uri: category.image}} style={styles.headerImage}>
             <Header style={styles.header} transparent>
                 <FocusAwareStatusBar backgroundColor='transparent'/>
                 <Left>
@@ -26,7 +29,7 @@ const CategoryRecipesHeader = props => {
                     </TouchableOpacity>
                 </Left>
                 <Body style={{marginLeft: -25}}>
-                    <Title style={{...styles.headerTitle, marginLeft: -50}}>{props.route.params.title}</Title>
+                    <Title style={{...styles.headerTitle, marginLeft: -50}}>{category.title}</Title>
                 </Body>
             </Header>
         </ImageBackground>
@@ -38,7 +41,6 @@ const styles = StyleSheet.create({
         width: '100%', 
         height: 250,
         elevation: 7,
-        // marginTop: -50
     },
     headerTitle: {
         fontSize: 40,

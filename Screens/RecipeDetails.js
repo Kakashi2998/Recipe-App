@@ -1,31 +1,38 @@
 import { Body, Card, CardItem, Container, Content, Header, Left, List, ListItem, Right, Tab, Tabs, Text, Title, Toast, View } from 'native-base';
 import React from 'react';
-import { Image, ImageBackground, StatusBar, StyleSheet } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import FocusAwareStatusBar from '../Components/FocusAwareStatusBar';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { RECIPECOLOR } from '../Constants/ColorConst';
-import { RecipeData } from '../Data/dummyRecipes';
 import { Ionicons } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
 import { PRIMARYFONT } from '../Constants/FontConst';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToFavourites, removeFromFavourites } from '../Store/Actions/RecipeActions';
 
-const RecipeDetails = ({route: {params: {id}}}) => {
+const RecipeDetails = ({route: {params}}) => {
 
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
-    const recipe = RecipeData.filter(r => r.id === id)[0];
+    const recipe = params;
 
-    const [liked, setLiked] = React.useState(recipe.favourite);
+    const favIndex = useSelector(state => state.RecipeReducer.favourites)
+    .findIndex(r => r.id === recipe.id);
+
+    const [liked, setLiked] = React.useState(favIndex >= 0);
 
     const toggleLiked = () => {
-        setLiked(!liked);
-        RecipeData.filter(r => r.id === recipe.id).map(r => r.favourite = !r.favourite);
         if(!liked){
+            dispatch(addToFavourites(recipe));
             Toast.show({text: `${recipe.title} added to favourites!`, buttonText: 'OK'});
-            return;
         }
-        Toast.show({text: `${recipe.title} removed from favourites!`, buttonText: 'OK', type: ''});
+        else {
+            dispatch(removeFromFavourites(recipe.id));
+            Toast.show({text: `${recipe.title} removed from favourites!`, buttonText: 'OK'});
+        }
+        setLiked(liked => !liked);
     }
 
     return (

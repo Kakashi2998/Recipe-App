@@ -1,11 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import RecipeNavigator from './Navigation/RecipeNavigator';
 import { Root } from 'native-base';
 import MainNavigator from './Navigation/MainNavigator';
+import { combineReducers, createStore } from 'redux';
+import RecipeReducer from './Store/Reducers/RecipeReducer';
+import CategoryReducer from './Store/Reducers/CategoryReducer';
+import { Provider } from 'react-redux';
+
+const reducer = combineReducers({
+  RecipeReducer: RecipeReducer,
+  CategoryReducer: CategoryReducer
+})
+
+const store = createStore(reducer);
 
 class App extends React.Component{
 
@@ -29,9 +40,11 @@ class App extends React.Component{
     }
 
     return (
-      <Root>
-        <MainNavigator/>
-      </Root>
+      <Provider store={store}>
+        <Root>
+          <MainNavigator/>
+        </Root>
+      </Provider>
     );
   }
 }

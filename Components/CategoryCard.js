@@ -13,7 +13,7 @@ const CategoryCard = ({item}) => {
         <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('white')} 
         onPress={() => navigation.navigate('Category Recipes', {...item})}>
             <Card style={styles.categoryCard}>
-                <ImageBackground source={item.image} style={styles.cardBackground}>
+                <ImageBackground source={{uri: item.image}} style={styles.cardBackground}>
                     <View style={{backgroundColor: 'rgba(0,0,0,0.2)'}}>
                         <Text style={{...styles.text, marginTop: item.title.length>11? 
                         Dimensions.get('screen').height/8: 

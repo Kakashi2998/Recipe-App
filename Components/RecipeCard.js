@@ -11,7 +11,7 @@ const RecipeCard = ({item}) => {
 
     return (
         <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('white')} 
-        onPress={() => navigation.navigate('Recipe Details', {id: item.id})}>
+        onPress={() => navigation.navigate('Recipe Details', {...item})}>
             <Card style={styles.recipeCard}>
                 <ImageBackground source={{uri: item.image}} 
                 style={styles.recipeImage}>
