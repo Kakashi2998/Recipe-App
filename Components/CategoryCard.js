@@ -1,45 +1,50 @@
+import { useNavigation } from '@react-navigation/native';
 import { Card, CardItem, Text, View } from 'native-base';
 import React from 'react';
 import { Dimensions, Image, ImageBackground, StyleSheet } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableNativeFeedback } from 'react-native-gesture-handler';
+import { PRIMARYFONT } from '../Constants/FontConst';
 
-const CategoryCard = ({item, navigation}) => {
+const CategoryCard = ({item}) => {
+
+    const navigation = useNavigation();
+
     return (
-        <TouchableOpacity 
-        onPress={() => navigation.navigate('Category Recipes', 
-        {category: item.title, image: item.image})}>
-                <Card style={styles.categoryCard}>
-                    <CardItem >
-                        <ImageBackground source={item.image} style={styles.cardBackground}>
-                            <View style={{backgroundColor: 'rgba(0,0,0,0.2)'}}>
-                                <Text style={styles.text}>{item.title}</Text>
-                            </View>
-                        </ImageBackground>
-                    </CardItem>
-                </Card>
-        </TouchableOpacity>
+        <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('white')} 
+        onPress={() => navigation.navigate('Category Recipes', {...item})}>
+            <Card style={styles.categoryCard}>
+                <ImageBackground source={item.image} style={styles.cardBackground}>
+                    <View style={{backgroundColor: 'rgba(0,0,0,0.2)'}}>
+                        <Text style={{...styles.text, marginTop: item.title.length>11? 
+                        Dimensions.get('screen').height/8: 
+                        Dimensions.get('screen').height/6}} numberOfLines={2}>
+                            {item.title}
+                        </Text>
+                    </View>
+                </ImageBackground>
+            </Card>
+        </TouchableNativeFeedback>
     );
 }
 
 const styles = StyleSheet.create({
     categoryCard: {
+        borderRadius: 25,
+        overflow: 'hidden',
         height: Dimensions.get('screen').height/4.5,
-        width: Dimensions.get('screen').width - 20,
-        marginTop: 10,
-        marginBottom: 10,
         marginLeft: 10,
-        // elevation: 10,
+        elevation: 7
     },
     cardBackground: {
-        height: Dimensions.get('screen').height/4, 
-        width: Dimensions.get('screen').width - 25, 
-        marginLeft: -15,
-        marginTop: -10,
+        width: Dimensions.get('screen').width/2.2,
+        height: Dimensions.get('screen').height/4.5
     },
     text: {
         color: 'white',
         fontSize: 30,
-        marginTop: Dimensions.get('screen').height/5.5
+        marginTop: Dimensions.get('screen').height/7.5,
+        marginLeft: 10,
+        fontFamily: PRIMARYFONT
     }
 });
 

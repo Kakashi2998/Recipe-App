@@ -4,6 +4,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import RecipeNavigator from './Navigation/RecipeNavigator';
+import { Root } from 'native-base';
+import MainNavigator from './Navigation/MainNavigator';
 
 class App extends React.Component{
 
@@ -15,6 +17,7 @@ class App extends React.Component{
     await Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+      'sanista-swashed': require('./assets/Fonts/SansitaSwashed-VariableFont_wght.ttf'),
       ...Ionicons.font,
     });
     this.setState({ isReady: true });
@@ -26,7 +29,9 @@ class App extends React.Component{
     }
 
     return (
-      <RecipeNavigator/>
+      <Root>
+        <MainNavigator/>
+      </Root>
     );
   }
 }
